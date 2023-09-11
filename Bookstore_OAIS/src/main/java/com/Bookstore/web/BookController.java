@@ -23,7 +23,7 @@ public class BookController {
 	}
 	
 	@RequestMapping(value = "/add")
-	public String addStudent(Model model){
+	public String addBook(Model model){
 	model.addAttribute("book", new Book());
 	return "addbook";
 	}
@@ -37,5 +37,11 @@ public class BookController {
 	public String deleteBook(@PathVariable("id") Long id, Model model) {
 	repository.deleteById(id);
 	return "redirect:../booklist";
+	}
+	
+	@RequestMapping(value = "/edit/{id}")
+	public String editBook(@PathVariable("id") Long id, Model model){
+	model.addAttribute("book", repository.findById(id));
+	return "edit";
 	}
 }
