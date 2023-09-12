@@ -33,6 +33,10 @@ public class Book {
 	public Long getId() {
 		return id;
 	}
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getTitle() {
 		return title;
@@ -72,5 +76,10 @@ public class Book {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+	
+	@Override
+	public String toString() {
+		return "Book [id=" + id + ", author=" + author + ", title=" + title + ", publicationYear=" + publicationYear + ", isbn=" + isbn + ", price=" + price + "]";
 	}
 }

@@ -23,11 +23,11 @@ public class BookstoreApplication {
 	@Bean
 	public CommandLineRunner bookDemo(BookRepository repository) {
 		return (args) -> {
-			log.info("save a couple of students");
+			log.info("save a couple of books");
 			repository.save(new Book("A Farewell to Arms", "Ernest Hemingway", 1929, "1232323-21", 20.00));
 			repository.save(new Book("Animal Farm", "George Orwell", 1945, "2212343-5", 25.00));
 
-			log.info("fetch all students");
+			log.info("fetch all books");
 			for (Book book : repository.findAll()) {
 				log.info(book.toString());
 			}
