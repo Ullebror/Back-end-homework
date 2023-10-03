@@ -4,15 +4,25 @@
 <head>
 <title>Bookstore</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}" />
 </head>
 <body>
+	<h1>
+		Hello <span sec:authentication="name"></span>!
+	</h1>
+	<div>
+		<form th:action="@{/logout}" method="post">
+			<input type="submit" value="Sign Out" />
+		</form>
+	</div>
 	<table class="table table-striped">
 		<tr>
 			<th>Author</th>
 			<th>Title</th>
 			<th>ISBN</th>
 			<th>Year</th>
+			<th>Category</th>
 		</tr>
 		<tr th:each="book : ${books}">
 			<td th:text="${book.author}"></td>
@@ -20,11 +30,13 @@
 			<td th:text="${book.isbn}"></td>
 			<td th:text="${book.publicationYear}"></td>
 			<td th:text="${book.category.name}"></td>
-			<td><a th:href="@{/delete/{id}(id=${book.id})}" class="btn-danger">Delete</a></td>
-			<td><a th:href="@{/edit/{id}(id=${book.id})}">Edit</a></td>
+			<td sec:authorize="hasRole('ROLE_ADMIN')"><a
+				th:href="@{/delete/{id}(id=${book.id})}" class="btn-danger">Delete</a></td>
+			<td sec:authorize="hasRole('ROLE_ADMIN')"><a
+				th:href="@{/edit/{id}(id=${book.id})}">Edit</a></td>
 		</tr>
 	</table>
-	<a href="/add" class="btn btn-success">Add Book</a>
+	<a sec:authorize="hasRole('ROLE_ADMIN')" href="/add" class="btn btn-success">Add Book</a>
 
 
 </body>
