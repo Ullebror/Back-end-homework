@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.Bookstore.model.Book;
 import com.Bookstore.model.BookRepository;
+import com.Bookstore.model.Category;
 import com.Bookstore.model.CategoryRepository;
 
 
@@ -49,6 +50,12 @@ public class BookController {
     	return repository.findById(id);
     }   
     
+ // RESTful service to get book by id
+    @RequestMapping(value="/category/{id}", method = RequestMethod.GET)
+    public @ResponseBody Optional<Category> findCategoryRest(@PathVariable("id") Long id) {	
+    	return crepository.findById(id);
+    }   
+    
     @PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/add")
 	public String addBook(Model model){
@@ -68,6 +75,13 @@ public class BookController {
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public String deleteBook(@PathVariable("id") Long bookId, Model model) {
 	repository.deleteById(bookId);
+	return "redirect:../booklist";
+	}
+	
+	@PreAuthorize("hasAuthority('ADMIN')")
+	@RequestMapping(value = "/delete/category/{id}", method = RequestMethod.GET)
+	public String deleteCategory(@PathVariable("name") Long Id, Model model) {
+	crepository.deleteById(Id);
 	return "redirect:../booklist";
 	}
 	
